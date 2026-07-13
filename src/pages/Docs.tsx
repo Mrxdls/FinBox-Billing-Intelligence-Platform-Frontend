@@ -3,11 +3,14 @@ import {
   ArrowRight,
   Boxes,
   Database,
+  Filter,
+  HardDrive,
   KeyRound,
   Layers,
   Mail,
   ShieldCheck,
   Cpu,
+  Workflow,
   BarChart3,
 } from 'lucide-react';
 import { health } from '../api/auth';
@@ -90,24 +93,31 @@ export default function Docs() {
       <section className="mt-10">
         <h2 className="text-xl font-semibold text-white">The end-to-end flow</h2>
         <p className="mt-2 text-sm text-slate-400">
-          Ingestion is asynchronous: the API stays fast while a background worker and ETL
-          pipeline do the heavy lifting into the warehouse.
+          The dashboard is fed by a nightly Airflow-orchestrated medallion pipeline: raw
+          mail lands in S3, gets parsed into receipts, then loaded into a Redshift star
+          schema.
         </p>
         <div className="card mt-4 p-6">
           <div className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:justify-center">
-            <Node icon={Mail} label="Gmail" sub="your receipts" />
+            <Node icon={Mail} label="Gmail" sub="linked inbox" />
             <Arrow />
             <Node icon={ShieldCheck} label="OAuth + Vault" sub="tokens secured" />
             <Arrow />
-            <Node icon={Cpu} label="Worker" sub="BullMQ mail-sync" />
+            <Node icon={Workflow} label="Airflow sync" sub="per-sender watermark" />
             <Arrow />
-            <Node icon={Database} label="ETL" sub="extract + parse" />
+            <Node icon={HardDrive} label="Bronze" sub="raw JSON · S3" />
             <Arrow />
-            <Node icon={Database} label="Warehouse" sub="Redshift" />
+            <Node icon={Filter} label="Silver" sub="receipt extraction" />
+            <Arrow />
+            <Node icon={Database} label="Gold" sub="star schema · Redshift" />
             <Arrow />
             <Node icon={BarChart3} label="Analytics API" sub="you are here" />
           </div>
         </div>
+        <p className="mt-3 text-xs text-slate-500">
+          Each sender is synced on its own watermark (backfilled the first time, incremental
+          after), so one bad account never blocks the rest of the batch.
+        </p>
       </section>
 
       {/* Two-token model */}

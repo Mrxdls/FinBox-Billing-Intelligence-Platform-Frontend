@@ -6,13 +6,15 @@ const stack = [
   'Node.js',
   'Express',
   'React',
+  'Python',
   'PostgreSQL',
   'Drizzle ORM',
+  'AWS S3',
   'Redshift',
-  'BullMQ',
+  'Apache Airflow',
   'Docker',
   'Google OAuth',
-  'Airflow / ETL',
+  'Azure Key Vault / AWS Secrets Manager',
 ];
 
 export default function About() {
@@ -43,12 +45,14 @@ export default function About() {
             </p>
             <p className="mt-3 leading-relaxed text-slate-400">
               The stack spans a clean, interface-driven TypeScript API, a secret-vault
-              token model, a Gmail ingestion layer, and an ETL pipeline feeding a Redshift
-              warehouse that powers the analytics you see in the dashboard.
+              token model (Azure Key Vault / AWS Secrets Manager), and a Python medallion
+              pipeline — bronze, silver, gold — orchestrated nightly by Airflow. Raw mail
+              lands in S3, gets parsed into receipts, and is loaded into a Redshift
+              star-schema warehouse that powers the analytics you see in the dashboard.
             </p>
 
             <div className="mt-5 flex items-center gap-2 text-sm text-slate-500">
-              <MapPin className="h-4 w-4" /> India · open to interesting problems
+              <MapPin className="h-4 w-4" /> Jaipur, Rajasthan · open to interesting problems
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
@@ -62,7 +66,7 @@ export default function About() {
                   <Mail className="h-4 w-4" /> mridulsoni.dev@gmail.com
                 </Button>
               </a>
-              <a href="https://github.com/mridulsoni" target="_blank" rel="noreferrer">
+              <a href="https://github.com/mrxdls" target="_blank" rel="noreferrer">
                 <Button variant="secondary">
                   <Github className="h-4 w-4" /> GitHub
                 </Button>
